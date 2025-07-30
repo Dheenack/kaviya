@@ -1,0 +1,86 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Hey kaviya..</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="768" />
+  <meta property="og:image:height" content="416" />
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/styles.css" />
+</head>
+
+<body>
+
+  <!-- Audio Player -->
+  <audio id="bgm" loop>
+    <source src="/audio/your-audio.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Toggle Button -->
+  <button onclick="toggleAudio()" style="position:fixed; top:1rem; right:1rem; z-index:999; background-color:#f7c1f7; border:none; padding:0.5rem 1rem; border-radius:1rem;">🔊</button>
+
+  <!-- Tap Prompt -->
+  <div id="audioPrompt" style="
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff0f5;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    z-index: 9999;
+    text-align: center;
+  ">
+    Tap to let the music sparkle!💫
+  </div>
+
+  <!-- Main Content -->
+  <div class="messages"></div>
+
+  <!-- Scripts -->
+  <script src="/js/anime.js"></script>
+  <script src="/js/scripts.js"></script>
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){
+      i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},
+      i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;
+      m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-37236197-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+  <!-- Audio Logic -->
+  <script>
+    function toggleAudio() {
+      const audio = document.getElementById("bgm");
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
+
+    // Start audio on first user interaction
+    window.addEventListener("click", function startAudioOnce() {
+      const audio = document.getElementById("bgm");
+      audio.play().catch(err => console.log("Autoplay blocked:", err));
+      const prompt = document.getElementById("audioPrompt");
+      if (prompt) prompt.style.display = "none";
+      window.removeEventListener("click", startAudioOnce);
+    });
+  </script>
+
+</body>
+</html>
